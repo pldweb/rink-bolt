@@ -33,8 +33,8 @@ export default defineNuxtConfig({
             navy: { 800: '#0e2d57', 900: '#032838' }
           },
           fontFamily: {
-            sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
-            body: ['Inter', 'system-ui', 'sans-serif'],
+            sans: ['Montserrat', 'system-ui', 'sans-serif'],
+            body: ['Montserrat', 'system-ui', 'sans-serif'],
           }
         }
       }
