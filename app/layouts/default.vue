@@ -14,6 +14,8 @@
 
           <!-- Desktop actions -->
           <div class="hidden md:flex items-center gap-2">
+            <NuxtLink to="/docs" class="px-4 py-2.5 rounded-lg text-sm font-semibold transition-colors duration-200" :class="docsClass">Dokumentasi</NuxtLink>
+            <button type="button" class="grid h-10 w-10 place-items-center rounded-lg transition-colors duration-200" :class="themeButtonClass" :aria-label="theme === 'dark' ? 'Gunakan tema terang' : 'Gunakan tema gelap'" @click="toggleTheme"><Sun v-if="theme === 'dark'" class="h-4 w-4" /><Moon v-else class="h-4 w-4" /></button>
             <a href="https://app.rinkbolt.web.id/login" class="px-4 py-2.5 rounded-lg text-sm font-semibold transition-colors duration-200" :class="loginClass">Login</a>
             <a href="https://app.rinkbolt.web.id/signup" class="bg-brand-500 hover:bg-brand-600 text-white px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 shadow-md hover:shadow-lg">Daftar</a>
           </div>
@@ -31,6 +33,8 @@
           class="md:hidden absolute top-full left-0 right-0 bg-white shadow-xl rounded-b-2xl border-t border-gray-100 py-3 px-4"
         >
           <div class="flex flex-col space-y-1">
+            <NuxtLink to="/docs" class="px-4 py-3 rounded-lg text-sm font-semibold text-gray-700 hover:text-brand-600 hover:bg-brand-50 transition-colors" @click="mobileOpen = false">Dokumentasi</NuxtLink>
+            <button type="button" class="flex items-center gap-2 px-4 py-3 text-left text-sm font-semibold text-gray-700 hover:text-brand-600 hover:bg-brand-50" @click="toggleTheme"><Sun v-if="theme === 'dark'" class="h-4 w-4" /><Moon v-else class="h-4 w-4" /> {{ theme === 'dark' ? 'Tema terang' : 'Tema gelap' }}</button>
             <a href="https://app.rinkbolt.web.id/login" class="px-4 py-3 rounded-lg text-sm font-semibold text-gray-700 hover:text-brand-600 hover:bg-brand-50 transition-colors" @click="mobileOpen = false">Login</a>
             <a href="https://app.rinkbolt.web.id/signup" class="mt-2 bg-brand-500 hover:bg-brand-600 text-white px-4 py-3 rounded-lg text-sm font-bold text-center transition-colors shadow-sm" @click="mobileOpen = false">Daftar</a>
           </div>
@@ -47,11 +51,12 @@
 </template>
 
 <script setup lang="ts">
-import { Menu, X } from 'lucide-vue-next'
+import { Menu, Moon, Sun, X } from 'lucide-vue-next'
 
 const route = useRoute()
 const mobileOpen = ref(false)
 const isScrolled = ref(false)
+const { theme, toggleTheme } = useTheme()
 
 const checkScroll = () => { isScrolled.value = window.scrollY > 50 }
 
@@ -61,11 +66,15 @@ onUnmounted(() => window.removeEventListener('scroll', checkScroll))
 const isHome = computed(() => route.path === '/')
 
 const headerClass = computed(() => {
-  if (!isHome.value) return 'bg-white/95 shadow-md backdrop-blur border-b border-gray-100'
-  return isScrolled.value ? 'bg-white/95 shadow-md backdrop-blur border-b border-gray-100' : 'bg-transparent'
+  const solidHeader = theme.value === 'dark'
+    ? 'bg-slate-950/95 shadow-md backdrop-blur border-b border-slate-800'
+    : 'bg-white/95 shadow-md backdrop-blur border-b border-gray-100'
+  if (!isHome.value) return solidHeader
+  return isScrolled.value ? solidHeader : 'bg-transparent'
 })
 
 const logoFilter = computed(() => {
+  if (theme.value === 'dark') return 'filter brightness-0 invert'
   if (!isHome.value || isScrolled.value) return ''
   return 'filter brightness-0 invert'
 })
@@ -79,4 +88,11 @@ const loginClass = computed(() => {
   const base = !isHome.value || isScrolled.value
   return base ? 'text-gray-600 hover:text-brand-600 hover:bg-brand-50' : 'text-white/80 hover:text-white hover:bg-white/10'
 })
+
+const docsClass = computed(() => {
+  const base = !isHome.value || isScrolled.value
+  return base ? 'text-gray-600 hover:text-brand-600 hover:bg-brand-50' : 'text-white/80 hover:text-white hover:bg-white/10'
+})
+
+const themeButtonClass = computed(() => !isHome.value || isScrolled.value ? 'text-gray-600 hover:bg-brand-50 hover:text-brand-600' : 'text-white/80 hover:bg-white/10 hover:text-white')
 </script>
