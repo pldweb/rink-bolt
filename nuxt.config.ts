@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: false,
 
-  modules: ['@pinia/nuxt', '@nuxtjs/tailwindcss'],
+  modules: ['@pinia/nuxt', '@nuxtjs/tailwindcss', "nitro-cloudflare-dev"],
 
   app: {
     head: {
@@ -18,7 +18,15 @@ export default defineNuxtConfig({
     }
   },
 
-  nitro: { preset: 'static', prerender: { routes: ['/', '/docs'], crawlLinks: true } },
+  nitro: {
+    preset: "cloudflare_module",
+    prerender: { routes: ['/', '/docs'], crawlLinks: true },
+
+    cloudflare: {
+      deployConfig: true,
+      nodeCompat: true
+    }
+  },
 
   tailwindcss: {
     config: {

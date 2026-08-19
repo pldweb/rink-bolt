@@ -24,3 +24,8 @@ logs
 !.env.example
 
 graphify-out/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example

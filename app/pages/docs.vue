@@ -82,6 +82,44 @@
           </div>
         </section>
 
+        <section id="bot-webhook" class="scroll-mt-28">
+          <SectionHeading title="Hubungkan bot atau website Anda" description="RinkBolt meneruskan pesan WhatsApp ke server Anda. Server Anda memprosesnya, lalu mengirim balasan melalui API RinkBolt." />
+          <ol class="mt-6 space-y-4">
+            <li v-for="(step, index) in botSteps" :key="step.title" class="flex gap-4 rounded-xl border border-slate-200 bg-white p-5"><span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-brand-100 text-sm font-bold text-brand-700">{{ index + 1 }}</span><div><h3 class="font-bold">{{ step.title }}</h3><p class="mt-1 text-sm leading-6 text-slate-600">{{ step.description }}</p></div></li>
+          </ol>
+          <div class="mt-6 overflow-x-auto rounded-xl bg-slate-950 p-5 text-sm leading-6 text-slate-200"><code>WhatsApp customer → Meta → RinkBolt → https://website-anda.com/api/whatsapp<br />Bot/AI Anda → API RinkBolt → WhatsApp customer</code></div>
+          <div class="mt-6 grid gap-4 lg:grid-cols-2">
+            <article class="rounded-xl border border-slate-200 bg-white p-5">
+              <h3 class="font-bold">Yang diterima server Anda</h3>
+              <p class="mt-2 text-sm leading-6 text-slate-600">RinkBolt mengirim <code>POST</code> JSON ke endpoint Anda. Untuk pesan masuk, pilih event <code>Messages</code>.</p>
+              <pre class="mt-4 overflow-x-auto rounded-lg bg-slate-950 p-4 text-xs leading-6 text-slate-200"><code>POST /api/whatsapp
+X-Webhook-Delivery-Id: evt_…
+X-Webhook-Event: messages
+X-Webhook-Timestamp: 178…
+X-Webhook-Signature: t=178…,v1=&lt;signature&gt;
+
+{
+  "eventId": "evt_…",
+  "field": "messages",
+  "from": "ch_…",
+  "timestamp": "2026-08-19T07:30:00.000Z",
+  "payload": { "messages": [] }
+}</code></pre>
+            </article>
+            <article class="rounded-xl border border-slate-200 bg-white p-5">
+              <h3 class="font-bold">Validasi lalu balas</h3>
+              <ol class="mt-3 list-decimal space-y-2 pl-5 text-sm leading-6 text-slate-600">
+                <li>Gunakan <strong>Signing Secret</strong> dari detail webhook, bukan API key.</li>
+                <li>Hitung HMAC-SHA256 dari <code>&lt;timestamp&gt;.&lt;raw request body&gt;</code>, lalu cocokkan dengan <code>v1</code> pada header signature.</li>
+                <li>Tolak timestamp yang lebih dari 5 menit dan simpan <code>eventId</code> agar event ganda tidak diproses dua kali.</li>
+                <li>Balas <code>200–299</code> dalam 15 detik. Setelah itu, bot Anda dapat memanggil API RinkBolt untuk membalas pelanggan.</li>
+              </ol>
+              <p class="mt-4 rounded-lg bg-amber-50 px-3 py-2 text-xs leading-5 text-amber-950">Endpoint harus URL HTTPS publik. Jangan letakkan Signing Secret maupun API key di browser.</p>
+            </article>
+          </div>
+          <p class="mt-4 text-sm leading-6 text-slate-600">Klik <strong>Send Test</strong> setelah membuat webhook. Riwayat sukses/gagal tersedia di detail endpoint; delivery yang gagal dapat dikirim ulang dari sana.</p>
+        </section>
+
         <section id="api" class="scroll-mt-28">
           <SectionHeading title="API dan developer" description="REST API v1 dipakai dari backend Anda untuk mengirim pesan atau mengelola campaign. Jangan pernah memanggilnya dari browser karena API key harus tetap rahasia." />
           <div class="mt-6 space-y-6">
@@ -163,7 +201,7 @@ const navigation = [
   { title: 'Mulai', items: [{ id: 'mulai', title: 'Pengenalan' }, { id: 'fitur', title: 'Kemampuan utama' }] },
   { title: 'Menggunakan RinkBolt', items: [{ id: 'pesan', title: 'Pesan dan media' }, { id: 'campaign', title: 'Campaign dan template' }] },
   { title: 'Pengembang', items: [
-    { id: 'integrasi', title: 'Webhook Meta' }, { id: 'api', title: 'Autentikasi API' },
+    { id: 'integrasi', title: 'Webhook Meta' }, { id: 'bot-webhook', title: 'Bot dan webhook user' }, { id: 'api', title: 'Autentikasi API' },
     { id: 'api-text', title: '/messages/text', method: 'POST' }, { id: 'api-image', title: '/messages/image', method: 'POST' }, { id: 'api-video', title: '/messages/video', method: 'POST' }, { id: 'api-audio', title: '/messages/audio', method: 'POST' }, { id: 'api-document', title: '/messages/document', method: 'POST' },
     { id: 'api-campaign', title: '/campaigns', method: 'GET' }, { id: 'api-campaign', title: '/campaigns', method: 'POST' }, { id: 'api-campaign', title: '/campaigns/:id', method: 'PATCH' }, { id: 'api-campaign', title: '/campaigns/:id/launch', method: 'POST' }, { id: 'api-campaign', title: '/campaigns/:id/cancel', method: 'POST' }, { id: 'api-campaign', title: '/campaigns/:id/stats', method: 'GET' },
   ] },
@@ -201,6 +239,12 @@ const gettingStarted = [
   { title: 'Hubungkan WhatsApp', description: 'Sambungkan akun WhatsApp Business melalui proses onboarding Meta.' },
   { title: 'Siapkan kontak', description: 'Impor atau buat customer, tambah label, dan kelompokkan menjadi segment.' },
   { title: 'Kirim dan pantau', description: 'Balas dari inbox atau buat campaign, lalu pantau status pengiriman.' },
+]
+
+const botSteps = [
+  { title: 'Buat endpoint backend', description: 'Siapkan URL HTTPS publik di backend Anda, misalnya https://website-anda.com/api/whatsapp. Jangan gunakan URL frontend atau localhost.' },
+  { title: 'Tambahkan di RinkBolt', description: 'Buka Settings → Webhooks → Add Webhook. Masukkan URL tadi, pilih Messages, lalu buka detail endpoint dan salin Signing Secret.' },
+  { title: 'Tes dan aktifkan bot', description: 'Klik Send Test. Jika endpoint menerima dan memvalidasi request, proses event Messages lalu balas pelanggan melalui API RinkBolt.' },
 ]
 
 const features = [
