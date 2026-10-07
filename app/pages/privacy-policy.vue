@@ -1,10 +1,10 @@
 <template>
   <div>
-    <section class="pt-28 pb-16 sm:pt-32 sm:pb-20 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+    <section class="pt-28 pb-16 sm:pt-32 sm:pb-20 bg-[#062534] text-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <span class="text-sm font-semibold text-brand-400 uppercase tracking-wider">Legal</span>
-        <h1 class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold">Privacy Policy</h1>
-        <p class="mt-2 text-gray-400 text-sm">Terakhir diperbarui: 9 Juni 2026</p>
+        <h1 class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold">Kebijakan Privasi</h1>
+        <p class="mt-2 text-gray-400 text-sm">Terakhir diperbarui: 24 September 2026</p>
       </div>
     </section>
 
@@ -20,7 +20,7 @@
         </div>
         <div class="mt-16 p-6 bg-brand-50 rounded-2xl border border-brand-100 text-center">
           <p class="text-sm text-gray-600">
-            Pertanyaan? <NuxtLink to="/contact" class="text-brand-600 font-semibold hover:underline">Hubungi kami</NuxtLink> atau email <strong class="text-gray-800">privacy@rinkwebstudio.web.id</strong>
+            Pertanyaan? <NuxtLink to="/contact" class="text-brand-600 font-semibold hover:underline">Hubungi kami</NuxtLink> atau email <strong class="text-gray-800">support@rinkwebstudio.com</strong>
           </p>
         </div>
       </div>
@@ -30,11 +30,13 @@
 
 <script setup lang="ts">
 const sections = [
+  { title: 'Pengelola Layanan', content: `RinkBolt dikembangkan dan dikelola oleh <strong>Rinkweb Studio</strong>, Jl. Sawo 4 RT08/RW01, Kel. Balekambang, Kec. Kramat Jati, Jakarta Timur 13530, Indonesia. Untuk pertanyaan privasi, hubungi <a href="mailto:support@rinkwebstudio.com">support@rinkwebstudio.com</a> atau WhatsApp <a href="https://wa.me/62895365441554">+62 895-3654-41554</a>.` },
   { title: 'Informasi yang Kami Kumpulkan', content: `RinkBolt mengumpulkan informasi yang Anda berikan langsung:<br><br><strong>Informasi Akun:</strong> Nama, email, nomor telepon, informasi bisnis.<br><strong>Data Kontak:</strong> Daftar kontak yang diunggah — nama & nomor WhatsApp.<br><strong>Data Penggunaan:</strong> Log aktivitas, statistik kampanye, interaksi fitur.<br><strong>Data Teknis:</strong> IP, browser, OS, info perangkat.` },
   { title: 'Penggunaan Informasi', content: `Data digunakan untuk:<br><br>• Menyediakan & memelihara layanan RinkBolt.<br>• Memproses & mengirim broadcast WhatsApp.<br>• Notifikasi akun & pembaruan layanan.<br>• Analisis untuk meningkatkan UX.<br>• Mencegah pelanggaran ketentuan/hukum.` },
   { title: 'Penyimpanan & Keamanan', content: `Enkripsi AES-256, firewall, audit log, akses berbasis peran. Data disimpan selama akun aktif. Dihapus dalam 30 hari setelah akun ditutup — kecuali diwajibkan hukum.` },
   { title: 'Berbagi Data', content: `Kami <strong>tidak menjual</strong> data Anda. Dibagikan hanya jika:<br><br>• <strong>Penyedia Layanan:</strong> Hosting, analitik, email — terikat NDA.<br>• <strong>Kewajiban Hukum:</strong> Diwajibkan regulasi/proses hukum.<br>• <strong>Persetujuan:</strong> Dengan izin eksplisit Anda.` },
-  { title: 'Hak Anda', content: `• Akses data pribadi yang kami simpan.<br>• Koreksi data tidak akurat.<br>• Hapus data — lihat <NuxtLink to="/data-deletion" class="font-semibold">Kebijakan Penghapusan</NuxtLink>.<br>• Tolak pemrosesan tertentu.<br>• Portabilitas data (JSON/CSV).` },
+  { title: 'Akun Instagram dan Threads', content: `Jika Anda menghubungkan akun Instagram atau Threads, kami memproses:<br><br><strong>Instagram:</strong> ID akun Instagram Business/Creator, ID dan nama Halaman Facebook yang tertaut, serta token akses.<br><strong>Threads:</strong> ID akun, username, token akses, dan tanggal kedaluwarsanya.<br><strong>Konten terjadwal:</strong> caption, tautan media, dan waktu terbit yang Anda buat di RinkBolt.<br><br>Data ini hanya dipakai untuk menghubungkan akun dan menerbitkan konten sesuai jadwal Anda. Token akses disimpan terenkripsi (AES-256-GCM). Kami <strong>tidak menjual</strong> data dari Instagram atau Threads dan tidak memakainya untuk iklan atau profiling.<br><br>Data dikirim ke Meta Platforms hanya untuk menjalankan fitur yang Anda minta, dan tunduk pada kebijakan Meta.<br><br><strong>Mencabut akses:</strong> klik <em>Disconnect</em> pada halaman kanal di RinkBolt, atau cabut aplikasi dari pengaturan Threads / pengaturan Facebook Anda. Untuk Threads, pencabutan dari sisi Meta otomatis menghapus token kami. Penghapusan data lengkap: lihat <a href="/data-deletion" class="font-semibold">Kebijakan Penghapusan</a>.` },
+  { title: 'Hak Anda', content: `• Akses data pribadi yang kami simpan.<br>• Koreksi data tidak akurat.<br>• Hapus data — lihat <a href="/data-deletion" class="font-semibold">Kebijakan Penghapusan</a>.<br>• Tolak pemrosesan tertentu.<br>• Portabilitas data (JSON/CSV).` },
   { title: 'Cookies', content: `Cookies esensial saja: session, auth, preferensi. Tidak ada tracking iklan atau third-party analytics. Kontrol via pengaturan browser.` },
   { title: 'Perubahan Kebijakan', content: `Dapat diperbarui sewaktu-waktu. Perubahan material diberitahukan via email. Penggunaan lanjutan = menyetujui kebijakan terbaru.` },
 ]

@@ -1,15 +1,22 @@
 <template>
   <div>
-    <section class="pt-28 pb-16 sm:pt-32 sm:pb-20 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+    <section class="pt-28 pb-16 sm:pt-32 sm:pb-20 bg-[#062534] text-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <span class="text-sm font-semibold text-brand-400 uppercase tracking-wider">Legal</span>
         <h1 class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold">Kebijakan Penghapusan Data</h1>
-        <p class="mt-2 text-gray-400 text-sm">Terakhir diperbarui: 9 Juni 2026</p>
+        <p class="mt-2 text-gray-400 text-sm">Terakhir diperbarui: 24 September 2026</p>
       </div>
     </section>
 
     <section class="py-16 sm:py-20 bg-white">
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Diisi saat Meta mengarahkan pengguna ke sini setelah permintaan penghapusan Threads -->
+        <div v-if="confirmationCode" class="mb-10 p-5 rounded-2xl border border-green-200 bg-green-50 text-center" role="status">
+          <p class="text-sm font-bold text-gray-900">Permintaan penghapusan dari Threads sudah diproses.</p>
+          <p class="mt-1 text-sm text-gray-600">Koneksi akun Threads Anda, termasuk token akses dan detail akun, telah dihapus.</p>
+          <p class="mt-2 text-xs text-gray-500">Kode konfirmasi: <span class="font-mono break-all text-gray-800">{{ confirmationCode }}</span></p>
+        </div>
+
         <!-- Steps -->
         <div class="grid sm:grid-cols-3 gap-4 mb-14">
           <div v-for="(step, i) in steps" :key="i" class="text-center p-6 rounded-2xl border border-gray-100 bg-gray-50">
@@ -31,7 +38,7 @@
 
         <div class="mt-16 p-6 bg-brand-50 rounded-2xl border border-brand-100 text-center">
           <p class="text-sm text-gray-600">
-            Ajukan permintaan: <strong class="text-gray-800">privacy@rinkwebstudio.web.id</strong> &nbsp;•&nbsp;
+            Ajukan permintaan: <strong class="text-gray-800">support@rinkwebstudio.com</strong> &nbsp;•&nbsp;
             WA: <strong class="text-gray-800">+62 812-3456-7890</strong> &nbsp;•&nbsp;
             <NuxtLink to="/contact" class="text-brand-600 font-semibold hover:underline">Halaman Kontak</NuxtLink>
           </p>
@@ -42,19 +49,26 @@
 </template>
 
 <script setup lang="ts">
+const route = useRoute()
+const confirmationCode = computed(() => {
+  const code = route.query.code
+  return typeof code === 'string' ? code : ''
+})
+
 const steps = [
-  { title: 'Ajukan', desc: 'Email ke privacy@rinkwebstudio.web.id dengan data akun lengkap' },
+  { title: 'Ajukan', desc: 'Email ke support@rinkwebstudio.com dengan data akun lengkap' },
   { title: 'Verifikasi', desc: 'Verifikasi identitas via email/WA (2×24 jam)' },
   { title: 'Hapus', desc: 'Data dihapus permanen maks 14 hari kerja' },
 ]
 
 const sections = [
   { title: 'Hak Penghapusan', content: `Sesuai regulasi, Anda berhak meminta penghapusan data pribadi. Kebijakan ini menjelaskan prosedurnya.` },
-  { title: 'Data yang Dapat Dihapus', content: `<strong>Ya:</strong><br><br>• Data Akun — nama, email, nomor telepon.<br>• Data Kontak — semua daftar kontak.<br>• Riwayat Broadcast — log, pesan, statistik.<br>• Data Penggunaan — log aktivitas.` },
+  { title: 'Data yang Dapat Dihapus', content: `<strong>Ya:</strong><br><br>• Data Akun — nama, email, nomor telepon.<br>• Data Kontak — semua daftar kontak.<br>• Riwayat Broadcast — log, pesan, statistik.<br>• Data Penggunaan — log aktivitas.<br>• Koneksi Instagram/Threads — token akses, ID akun, dan jadwal posting.` },
   { title: 'Pengecualian', content: `<strong>Tidak dapat dihapus:</strong><br><br>• Diwajibkan hukum (pajak, audit, dll).<br>• Proses hukum berjalan.<br>• Data sudah dianonimkan.<br>• Kepentingan bisnis sah &lt; hak privasi.` },
-  { title: 'Prosedur', content: `<ol><li>Email <strong>privacy@rinkwebstudio.web.id</strong> — subjek "Permintaan Penghapusan Data".</li><li>Sertakan: nama, email terdaftar, nomor WA (jika ada), alasan (opsional).</li><li>Konfirmasi dalam 2×24 jam.</li><li>Selesai maks <strong>14 hari kerja</strong> setelah verifikasi.</li></ol>` },
+  { title: 'Prosedur', content: `<ol><li>Email <strong>support@rinkwebstudio.com</strong> — subjek "Permintaan Penghapusan Data".</li><li>Sertakan: nama, email terdaftar, nomor WA (jika ada), alasan (opsional).</li><li>Konfirmasi dalam 2×24 jam.</li><li>Selesai maks <strong>14 hari kerja</strong> setelah verifikasi.</li></ol>` },
   { title: 'Verifikasi Identitas', content: `Verifikasi via email/WA terdaftar. Permintaan tanpa verifikasi sah ditolak demi keamanan data Anda.` },
   { title: 'Konsekuensi', content: `Setelah dihapus:<br><br>• Akun dinonaktifkan permanen.<br>• Semua kontak, riwayat, data dihapus total.<br>• <strong>Data tidak bisa dipulihkan.</strong><br>• Akses permanen ke RinkBolt hilang.` },
+  { title: 'Data Instagram dan Threads', content: `<strong>Threads:</strong><br><br>• Mencabut RinkBolt dari pengaturan Threads: token akses kami dihapus otomatis, kanal ditandai terputus.<br>• Meminta penghapusan data lewat Meta: kanal Threads Anda (token, ID akun, username) dihapus otomatis dan Anda menerima kode konfirmasi.<br><br><strong>Instagram:</strong><br><br>• Klik <em>Disconnect</em> pada halaman kanal di RinkBolt untuk menghapus token akses.<br>• Untuk menghapus seluruh data koneksi dan jadwal posting, ajukan permintaan lewat prosedur di atas dengan subjek "Penghapusan Data Instagram".<br>• Mencabut aplikasi dari pengaturan Facebook menonaktifkan token di sisi Meta, tetapi data yang tersimpan di RinkBolt baru terhapus setelah Anda mengajukan permintaan.<br><br>Konten yang sudah terbit di Instagram atau Threads tidak ikut terhapus; kelola langsung di aplikasinya.` },
   { title: 'Penghapusan Otomatis', content: `<strong>Auto-delete:</strong><br><br>• Akun tidak aktif 12+ bulan — dihapus setelah notifikasi 30 hari.<br>• Log teknis — 90 hari.<br>• Session token — 7 hari.` },
 ]
 </script>

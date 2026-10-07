@@ -27,9 +27,9 @@
       <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 sm:py-40 w-full">
         <div class="grid lg:grid-cols-2 gap-12 items-center">
           <div class="max-w-xl">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-white/5 border border-white/15 rounded-full text-brand-200 text-xs font-bold tracking-wider mb-8">
-              <span class="w-2 h-2 bg-brand-400 rounded-full" />
-              RinkBolt · Meta Tech Provider
+            <div class="inline-flex items-center gap-2.5 pl-2 pr-4 py-1.5 bg-white/5 border border-white/15 rounded-full text-white text-xs font-bold tracking-wider mb-8">
+              <span class="grid h-6 w-6 place-items-center rounded-full bg-white"><MetaLogo class="h-3 w-3.5 text-[#0866FF]" /></span>
+              Meta Tech Provider · WhatsApp Business API
             </div>
 
             <h1 class="text-4xl sm:text-5xl lg:text-[4rem] font-black leading-[1.02] tracking-[-.045em] text-white">
@@ -71,11 +71,119 @@
       </div>
     </section>
 
+    <!-- ─── MITRA META ─────────────────────── -->
+    <section class="border-y border-white/10 bg-[#041a24]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-2 text-white"><MetaLogo class="h-7 w-9 text-[#0866FF]" /><span class="text-xl font-bold tracking-tight">Meta</span></div>
+          <span class="h-8 w-px bg-white/15" />
+          <div>
+            <p class="text-sm font-bold text-white">Tech Provider resmi</p>
+            <p class="text-xs text-gray-400">WhatsApp Business Platform (Cloud API)</p>
+          </div>
+        </div>
+        <ul class="flex flex-wrap gap-x-6 gap-y-2 text-xs font-semibold text-gray-400">
+          <li class="flex items-center gap-1.5"><CheckCheck class="h-4 w-4 text-emerald-300" /> Nomor terverifikasi Meta</li>
+          <li class="flex items-center gap-1.5"><CheckCheck class="h-4 w-4 text-emerald-300" /> Template disetujui Meta</li>
+          <li class="flex items-center gap-1.5"><CheckCheck class="h-4 w-4 text-emerald-300" /> Tanpa aplikasi tidak resmi</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ─── FITUR ─────────────────────────── -->
+    <section id="fitur" class="relative bg-[#061923] py-24 sm:py-32">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl">
+          <p class="text-xs font-bold uppercase tracking-[.2em] text-brand-300">Satu workspace</p>
+          <h2 class="mt-4 text-3xl sm:text-4xl font-black tracking-[-.03em]">Semua percakapan bisnis, dari broadcast sampai balasan pelanggan.</h2>
+          <p class="mt-5 text-gray-400 leading-relaxed">RinkBolt terhubung langsung ke WhatsApp Business Platform milik Meta, jadi pengiriman Anda memakai jalur resmi, bukan aplikasi tiruan.</p>
+        </div>
+        <div class="mt-14 grid gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-3">
+          <div v-for="f in features" :key="f.title" class="group bg-[#081f2b] p-8 transition-colors hover:bg-[#0a2836]">
+            <div class="grid h-11 w-11 place-items-center rounded-xl bg-brand-500/10 text-brand-300 ring-1 ring-brand-400/20 transition-colors group-hover:bg-brand-500 group-hover:text-white"><component :is="f.icon" class="h-5 w-5" /></div>
+            <h3 class="mt-6 text-lg font-bold text-white">{{ f.title }}</h3>
+            <p class="mt-2 text-sm leading-6 text-gray-400">{{ f.desc }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── CARA KERJA ─────────────────────── -->
+    <section class="bg-white py-24 sm:py-32 text-gray-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-14 lg:grid-cols-[1fr_1.4fr] lg:items-start">
+        <div class="lg:sticky lg:top-28">
+          <p class="text-xs font-bold uppercase tracking-[.2em] text-brand-600">Cara mulai</p>
+          <h2 class="mt-4 text-3xl sm:text-4xl font-black tracking-[-.03em] text-navy-900">Siap kirim dalam tiga langkah.</h2>
+          <p class="mt-5 text-gray-600 leading-relaxed">Tim kami mendampingi dari verifikasi nomor sampai kampanye pertama berjalan.</p>
+          <a href="https://app.rinkbolt.web.id/signup" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-navy-900 px-6 py-3.5 text-sm font-bold text-white transition-colors hover:bg-navy-800">Buat akun <ArrowRight class="h-4 w-4" /></a>
+        </div>
+        <ol class="space-y-4">
+          <li v-for="(step, i) in steps" :key="step.title" class="flex gap-6 rounded-2xl border border-gray-100 bg-gray-50/60 p-7">
+            <span class="text-4xl font-black leading-none text-brand-500 tabular-nums">0{{ i + 1 }}</span>
+            <div>
+              <h3 class="text-lg font-bold text-navy-900">{{ step.title }}</h3>
+              <p class="mt-2 text-sm leading-6 text-gray-600">{{ step.desc }}</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ─── DEVELOPER ──────────────────────── -->
+    <section class="bg-[#062534] py-24 sm:py-28">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-12 lg:grid-cols-2 lg:items-center">
+        <div>
+          <p class="text-xs font-bold uppercase tracking-[.2em] text-brand-300">Untuk developer</p>
+          <h2 class="mt-4 text-3xl sm:text-4xl font-black tracking-[-.03em]">Sambungkan ke sistem Anda lewat REST API dan webhook.</h2>
+          <p class="mt-5 text-gray-400 leading-relaxed">Kirim pesan dari backend, terima pesan masuk dan status pengiriman secara real-time. API key berbasis scope dan webhook bertanda tangan HMAC.</p>
+          <NuxtLink to="/docs" class="mt-8 inline-flex items-center gap-2 rounded-lg border border-white/15 px-6 py-3.5 text-sm font-bold text-white transition-colors hover:bg-white/10">Baca dokumentasi <ArrowRight class="h-4 w-4" /></NuxtLink>
+        </div>
+        <pre class="overflow-x-auto rounded-2xl border border-white/10 bg-[#041a24] p-6 text-[13px] leading-6 text-slate-300 shadow-2xl shadow-black/30"><code><span class="text-emerald-300">curl</span> -X POST https://api.rinkbolt.web.id/api/v1/messages \
+  -H <span class="text-brand-300">"Authorization: Bearer $RINKBOLT_API_KEY"</span> \
+  -H <span class="text-brand-300">"Content-Type: application/json"</span> \
+  -d <span class="text-brand-300">'{
+    "from": "wzp_abc123",
+    "to": "628123456789",
+    "content": { "type": "text", "text": "Pesanan Anda sudah dikirim" }
+  }'</span></code></pre>
+      </div>
+    </section>
+
+    <!-- ─── CTA ────────────────────────────── -->
+    <section class="bg-[#061923] py-24">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="relative overflow-hidden rounded-3xl bg-brand-500 px-8 py-14 sm:px-14 text-center">
+          <div class="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full border-[28px] border-white/10" />
+          <div class="pointer-events-none absolute -bottom-20 -left-10 h-56 w-56 rounded-full bg-brand-600/60 blur-2xl" />
+          <h2 class="relative text-3xl sm:text-4xl font-black tracking-[-.03em] text-white">Mulai kirim pesan lewat jalur resmi.</h2>
+          <p class="relative mx-auto mt-4 max-w-xl text-brand-50">Ceritakan kebutuhan bisnis Anda, kami bantu siapkan nomor WhatsApp Business dan kampanye pertama.</p>
+          <div class="relative mt-8 flex flex-wrap justify-center gap-3">
+            <a href="https://wa.me/62895365441554" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3.5 text-sm font-bold text-brand-700 transition-colors hover:bg-brand-50"><MessageCircle class="h-4 w-4" /> Diskusi via WhatsApp</a>
+            <NuxtLink to="/tentang" class="inline-flex items-center gap-2 rounded-lg border border-white/40 px-6 py-3.5 text-sm font-bold text-white transition-colors hover:bg-white/10">Tentang kami</NuxtLink>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Shield, ArrowRight, Zap, MessageCircle, CheckCheck } from 'lucide-vue-next'
+import { Shield, ArrowRight, Zap, MessageCircle, CheckCheck, Megaphone, Inbox, Users, LayoutTemplate, CalendarClock, Webhook } from 'lucide-vue-next'
+
+const features = [
+  { icon: Megaphone, title: 'Broadcast & campaign', desc: 'Kirim pesan massal ke segmen kontak secara bertahap, lengkap dengan penjadwalan dan laporan pengiriman.' },
+  { icon: Inbox, title: 'Inbox percakapan', desc: 'Balas pesan pelanggan dari satu kotak masuk bersama, tanpa berpindah-pindah ponsel.' },
+  { icon: Users, title: 'Kontak & CRM', desc: 'Impor, beri label, dan kelompokkan kontak supaya pesan sampai ke orang yang tepat.' },
+  { icon: LayoutTemplate, title: 'Template pesan', desc: 'Kelola template yang disetujui Meta untuk teks, gambar, dokumen, dan video.' },
+  { icon: CalendarClock, title: 'Instagram & Threads', desc: 'Jadwalkan konten ke akun Instagram dan Threads yang Anda hubungkan dari workspace yang sama.' },
+  { icon: Webhook, title: 'API & webhook', desc: 'Integrasikan dengan sistem toko, ERP, atau aplikasi internal Anda lewat REST API.' },
+]
+
+const steps = [
+  { title: 'Daftar dan buat workspace', desc: 'Buat akun RinkBolt dan undang anggota tim yang akan mengelola pesan.' },
+  { title: 'Hubungkan nomor WhatsApp Business', desc: 'Sambungkan nomor ke WhatsApp Business Platform resmi Meta. Nomor tetap milik Anda.' },
+  { title: 'Kirim kampanye pertama', desc: 'Pilih template, tentukan audiens, lalu pantau status terkirim, dibaca, dan dibalas.' },
+]
 
 const parallax = ref({ x: 0, y: 0 })
 const updateParallax = (event: PointerEvent) => {
