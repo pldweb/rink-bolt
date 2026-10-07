@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Header -->
-    <section class="pt-28 pb-16 sm:pt-32 sm:pb-20 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+    <section class="pt-28 pb-16 sm:pt-32 sm:pb-20 bg-[#062534] text-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <span class="text-sm font-semibold text-brand-400 uppercase tracking-wider">Kontak</span>
         <h1 class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold">Hubungi Kami</h1>
@@ -62,7 +62,7 @@
                 >
                   <Send v-if="!submitted" class="w-4 h-4" />
                   <CheckCircle2 v-else class="w-4 h-4" />
-                  {{ submitted ? 'Pesan Terkirim!' : 'Kirim Pesan' }}
+                  {{ submitted ? 'WhatsApp dibuka' : 'Kirim via WhatsApp' }}
                 </button>
               </form>
             </div>
@@ -80,11 +80,14 @@ const form = ref({ name: '', email: '', subject: '', message: '' })
 const submitted = ref(false)
 
 const contactInfo = [
-  { icon: Mail, label: 'Email', value: 'support@rinkwebstudio.web.id', sub: 'Respon dalam 1 jam', bg: 'bg-brand-50', iconColor: 'text-brand-500' },
-  { icon: MessageCircle, label: 'WhatsApp', value: '+62 812-3456-7890', sub: 'Sen–Jum, 08:00–20:00', bg: 'bg-green-50', iconColor: 'text-green-600' },
-  { icon: MapPin, label: 'Alamat', value: 'Jl. Teknologi No. 42', sub: 'Jakarta Selatan', bg: 'bg-blue-50', iconColor: 'text-blue-600' },
-  { icon: Clock, label: 'Jam Operasional', value: '24/7 Support', sub: 'Tim engineer standby', bg: 'bg-purple-50', iconColor: 'text-purple-600' },
+  { icon: Mail, label: 'Email', value: 'support@rinkwebstudio.com', sub: 'Balasan di hari kerja', bg: 'bg-brand-50', iconColor: 'text-brand-500' },
+  { icon: MessageCircle, label: 'WhatsApp', value: '+62 895-3654-41554', sub: 'Senin–Sabtu, 09.00–18.00 WIB', bg: 'bg-green-50', iconColor: 'text-green-600' },
+  { icon: MapPin, label: 'Alamat', value: 'Jl. Sawo 4 RT08/RW01, Kel. Balekambang, Kec. Kramat Jati', sub: 'Jakarta Timur 13530, Indonesia', bg: 'bg-blue-50', iconColor: 'text-blue-600' },
+  { icon: Clock, label: 'Jam Operasional', value: 'Senin–Sabtu', sub: '09.00–18.00 WIB', bg: 'bg-purple-50', iconColor: 'text-purple-600' },
 ]
 
-const submitForm = () => { submitted.value = true; setTimeout(() => { submitted.value = false; form.value = { name: '', email: '', subject: '', message: '' } }, 3000) }
+const submitForm = () => {
+  const { name, email, subject, message } = form.value
+  window.open(`https://wa.me/62895365441554?text=${encodeURIComponent(`Halo RinkBolt, saya ${name} (${email}).\n\n${subject}\n${message}`)}`, '_blank', 'noopener')
+  submitted.value = true; setTimeout(() => { submitted.value = false; form.value = { name: '', email: '', subject: '', message: '' } }, 3000) }
 </script>

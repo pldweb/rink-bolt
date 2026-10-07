@@ -13,8 +13,7 @@ export default defineNuxtConfig({
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { name: 'description', content: 'Platform broadcast WhatsApp, blasting, dan CRM untuk bisnis Anda. Kirim pesan massal, kelola kontak, dan pantau kampanye.' }
       ],
-      link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
-      script: [{ innerHTML: "(() => { try { const theme = localStorage.getItem('rinkbolt-theme'); const dark = theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches); document.documentElement.classList.toggle('dark', dark); document.documentElement.style.colorScheme = dark ? 'dark' : 'light'; } catch {} })()" }]
+      link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
     }
   },
 
