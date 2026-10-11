@@ -1,9 +1,24 @@
+// Header keamanan untuk respons dari server Nitro (halaman non-prerender).
+// Nitro juga menuliskannya ke _headers untuk halaman prerender (/, /docs).
+const securityHeaders: Record<string, string> = {
+  'X-Content-Type-Options': 'nosniff',
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+  'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
+  'Content-Security-Policy': "frame-ancestors 'none'; base-uri 'self'; object-src 'none'",
+  'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=()',
+}
+// Build staging (NUXT_NOINDEX=1) tidak boleh diindeks mesin pencari.
+if (process.env.NUXT_NOINDEX === '1') {
+  securityHeaders['X-Robots-Tag'] = 'noindex, nofollow'
+}
+
 // Nilai token mengikuti Rink Design Blueprint
 // (core/docs/design/RINK_DESIGN_BLUEPRINT.md, packages/wabs/design/rink-tokens.json).
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   ssr: false,
+  routeRules: { '/**': { headers: securityHeaders } },
 
   modules: ['@nuxtjs/tailwindcss', "nitro-cloudflare-dev"],
 
