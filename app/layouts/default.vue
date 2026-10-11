@@ -1,138 +1,134 @@
 <template>
-  <div class="min-h-screen flex flex-col bg-[#061923]">
-    <!-- Header -->
-    <header
-      class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-      :class="headerClass"
-    >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <nav class="flex justify-between items-center h-[72px]">
-          <!-- Logo -->
-          <NuxtLink to="/" class="flex items-center">
-            <img src="/logo.png" alt="RinkBolt" class="h-7" :class="logoFilter" />
-          </NuxtLink>
+  <div class="flex min-h-screen flex-col bg-white">
+    <a href="#konten" class="sr-only z-[60] rounded-full bg-navy px-5 py-3 font-semibold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-3">Lewati ke konten</a>
 
-          <!-- Desktop actions -->
-          <div class="hidden lg:flex items-center gap-1">
-            <NuxtLink v-for="link in navLinks" :key="link.to" :to="link.to" class="px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors duration-200" :class="docsClass">{{ link.label }}</NuxtLink>
-            <span class="mx-1 h-5 w-px" :class="isHome && !isScrolled ? 'bg-white/20' : 'bg-gray-200'" />
-            <a href="https://app.rinkbolt.web.id/login" class="px-4 py-2.5 rounded-lg text-sm font-semibold transition-colors duration-200" :class="loginClass">Login</a>
-            <a href="https://app.rinkbolt.web.id/signup" class="bg-brand-500 hover:bg-brand-600 text-white px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 shadow-md hover:shadow-lg">Daftar</a>
-          </div>
+    <header class="sticky top-0 z-50 border-b bg-white transition-shadow duration-200" :class="isScrolled ? 'border-line shadow-md' : 'border-transparent'">
+      <nav class="container-page flex h-16 items-center justify-between gap-6 lg:h-[72px]" aria-label="Utama">
+        <NuxtLink to="/" class="flex shrink-0 items-center rounded-sm" aria-label="RinkBolt, ke beranda">
+          <BrandLogo />
+        </NuxtLink>
 
-          <!-- Mobile Menu Button -->
-          <button class="lg:hidden p-2 rounded-lg" @click="mobileOpen = !mobileOpen" aria-label="Toggle menu">
-            <Menu v-if="!mobileOpen" class="w-5 h-5" :class="menuIconClass" />
-            <X v-else class="w-5 h-5 text-gray-700" />
-          </button>
-        </nav>
+        <ul class="hidden items-center gap-8 lg:flex">
+          <li v-for="link in navLinks" :key="link.to">
+            <NuxtLink :to="link.to" class="relative py-2 text-[15px] font-medium text-ink-muted transition-colors hover:text-ink" :class="isActive(link.to) && 'nav-active'" :aria-current="isActive(link.to) ? 'page' : undefined">{{ link.label }}</NuxtLink>
+          </li>
+        </ul>
 
-        <!-- Mobile Menu -->
-        <div
-          v-if="mobileOpen"
-          class="lg:hidden absolute top-full left-0 right-0 bg-white shadow-xl rounded-b-2xl border-t border-gray-100 py-3 px-4"
-        >
-          <div class="flex flex-col space-y-1">
-            <NuxtLink v-for="link in navLinks" :key="link.to" :to="link.to" class="px-4 py-3 rounded-lg text-sm font-semibold text-gray-700 hover:text-brand-600 hover:bg-brand-50 transition-colors" @click="mobileOpen = false">{{ link.label }}</NuxtLink>
-            <a href="https://app.rinkbolt.web.id/login" class="px-4 py-3 rounded-lg text-sm font-semibold text-gray-700 hover:text-brand-600 hover:bg-brand-50 transition-colors" @click="mobileOpen = false">Login</a>
-            <a href="https://app.rinkbolt.web.id/signup" class="mt-2 bg-brand-500 hover:bg-brand-600 text-white px-4 py-3 rounded-lg text-sm font-bold text-center transition-colors shadow-sm" @click="mobileOpen = false">Daftar</a>
-          </div>
+        <div class="hidden items-center gap-2 lg:flex">
+          <a :href="LOGIN_URL" class="btn text-ink hover:bg-sunken">Masuk</a>
+          <a :href="SIGNUP_URL" class="btn btn-primary">Coba gratis</a>
+        </div>
+
+        <button ref="menuButton" type="button" class="grid h-11 w-11 place-items-center rounded-full text-ink hover:bg-sunken lg:hidden" :aria-expanded="mobileOpen" aria-controls="menu-ponsel" :aria-label="mobileOpen ? 'Tutup menu' : 'Buka menu'" @click="mobileOpen ? closeMenu() : openMenu()">
+          <X v-if="mobileOpen" class="h-6 w-6" aria-hidden="true" />
+          <Menu v-else class="h-6 w-6" aria-hidden="true" />
+        </button>
+      </nav>
+
+      <div v-if="mobileOpen" id="menu-ponsel" ref="menuPanel" class="absolute inset-x-4 top-full mt-2 rounded-xl border border-line bg-white p-3 shadow-lg lg:hidden" @keydown.esc="closeMenu(true)">
+        <ul>
+          <li v-for="link in navLinks" :key="link.to">
+            <NuxtLink :to="link.to" class="flex h-12 items-center rounded-md px-4 font-medium text-ink hover:bg-sunken" :class="isActive(link.to) && 'bg-brand-soft font-semibold'" @click="closeMenu()">{{ link.label }}</NuxtLink>
+          </li>
+        </ul>
+        <div class="mt-3 grid grid-cols-2 gap-3 border-t border-line pt-3">
+          <a :href="LOGIN_URL" class="btn btn-outline">Masuk</a>
+          <a :href="SIGNUP_URL" class="btn btn-primary">Coba gratis</a>
         </div>
       </div>
     </header>
 
-    <!-- Page Content -->
-    <main class="flex-1">
+    <main id="konten" class="flex-1">
       <slot />
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-[#041a24] text-slate-300">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid gap-12 md:grid-cols-[1.4fr_1fr_1fr_1.3fr]">
-        <div>
-          <img src="/logo.png" alt="RinkBolt" class="h-7 filter brightness-0 invert" />
-          <p class="mt-5 max-w-xs text-sm leading-6 text-slate-400">Platform WhatsApp Business resmi via Meta API untuk broadcast, percakapan, dan CRM bisnis Anda.</p>
-          <div class="mt-6 inline-flex items-center gap-2.5 rounded-xl border border-white/10 bg-white/5 px-3 py-2">
-            <MetaLogo class="h-4 w-5 text-[#0866FF]" />
-            <span class="text-[11px] font-semibold leading-tight text-slate-300">Meta Tech Provider<br /><span class="font-medium text-slate-500">WhatsApp Business Platform</span></span>
-          </div>
-          <p class="mt-5 text-xs text-slate-500">Produk dari <a href="https://rinkwebstudio.com" target="_blank" rel="noopener noreferrer" class="font-semibold text-brand-300 hover:text-brand-200">Rinkweb Studio</a></p>
+    <footer class="border-t border-line bg-sunken text-ink-muted">
+      <div class="container-page grid grid-cols-2 gap-x-6 gap-y-10 py-12 lg:grid-cols-[1.5fr_1fr_1fr_1.4fr] lg:py-16">
+        <div class="col-span-2 lg:col-span-1">
+          <BrandLogo />
+          <p class="mt-4 max-w-xs text-body-sm">Inbox WhatsApp, Instagram, dan Threads resmi Meta untuk broadcast, percakapan, dan CRM bisnismu.</p>
+          <p class="mt-5 inline-flex items-center gap-2 rounded-full border border-line bg-white py-2 pl-3 pr-4 text-caption text-ink">
+            <MetaLogo class="h-4 w-5 text-[#0866FF]" />Meta Tech Provider
+          </p>
         </div>
-        <div>
-          <h3 class="text-xs font-bold uppercase tracking-wider text-white">Perusahaan</h3>
-          <ul class="mt-4 space-y-3 text-sm">
-            <li><NuxtLink to="/tentang" class="hover:text-brand-300 transition-colors">Tentang Kami</NuxtLink></li>
-            <li><NuxtLink to="/docs" class="hover:text-brand-300 transition-colors">Dokumentasi</NuxtLink></li>
-            <li><NuxtLink to="/contact" class="hover:text-brand-300 transition-colors">Hubungi Kami</NuxtLink></li>
+        <div v-for="group in footerGroups" :key="group.title">
+          <h2 class="text-overline uppercase text-ink">{{ group.title }}</h2>
+          <ul class="mt-4 space-y-1 text-body-sm">
+            <li v-for="link in group.links" :key="link.to">
+              <NuxtLink :to="link.to" class="inline-flex min-h-[2.25rem] items-center hover:text-ink hover:underline">{{ link.label }}</NuxtLink>
+            </li>
           </ul>
         </div>
-        <div>
-          <h3 class="text-xs font-bold uppercase tracking-wider text-white">Legal</h3>
-          <ul class="mt-4 space-y-3 text-sm">
-            <li><NuxtLink to="/privacy-policy" class="hover:text-brand-300 transition-colors">Kebijakan Privasi</NuxtLink></li>
-            <li><NuxtLink to="/terms" class="hover:text-brand-300 transition-colors">Syarat &amp; Ketentuan</NuxtLink></li>
-            <li><NuxtLink to="/data-deletion" class="hover:text-brand-300 transition-colors">Penghapusan Data</NuxtLink></li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="text-xs font-bold uppercase tracking-wider text-white">Kontak</h3>
-          <ul class="mt-4 space-y-3 text-sm text-slate-400">
-            <li class="flex gap-3"><MapPin class="mt-0.5 h-4 w-4 shrink-0 text-brand-300" />Jl. Sawo 4 RT08/RW01, Kel. Balekambang, Kec. Kramat Jati, Jakarta Timur 13530, Indonesia</li>
-            <li class="flex gap-3"><Phone class="mt-0.5 h-4 w-4 shrink-0 text-brand-300" /><a href="https://wa.me/62895365441554" target="_blank" rel="noopener noreferrer" class="hover:text-brand-300">+62 895-3654-41554</a></li>
-            <li class="flex gap-3"><Mail class="mt-0.5 h-4 w-4 shrink-0 text-brand-300" /><a href="mailto:support@rinkwebstudio.com" class="hover:text-brand-300">support@rinkwebstudio.com</a></li>
+        <div class="col-span-2 lg:col-span-1">
+          <h2 class="text-overline uppercase text-ink">Kontak</h2>
+          <ul class="mt-4 space-y-3 text-body-sm">
+            <li class="flex gap-3"><MapPin class="mt-0.5 h-4 w-4 shrink-0 text-brand-ink" aria-hidden="true" />Jl. Sawo 4 RT08/RW01, Kel. Balekambang, Kec. Kramat Jati, Jakarta Timur 13530, Indonesia</li>
+            <li class="flex gap-3"><Phone class="mt-0.5 h-4 w-4 shrink-0 text-brand-ink" aria-hidden="true" /><a :href="WHATSAPP_URL" target="_blank" rel="noopener noreferrer" class="hover:text-ink hover:underline">+62 895-3654-41554</a></li>
+            <li class="flex gap-3"><Mail class="mt-0.5 h-4 w-4 shrink-0 text-brand-ink" aria-hidden="true" /><a href="mailto:support@rinkwebstudio.com" class="break-all hover:text-ink hover:underline">support@rinkwebstudio.com</a></li>
           </ul>
         </div>
       </div>
-      <div class="border-t border-white/10">
-        <p class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-xs text-slate-500">© {{ new Date().getFullYear() }} Rinkweb Studio. Hak cipta dilindungi.</p>
+      <div class="border-t border-line">
+        <div class="container-page flex flex-col gap-2 py-6 text-caption sm:flex-row sm:justify-between">
+          <p>© {{ year }} Rinkweb Studio. Hak cipta dilindungi.</p>
+          <p>Produk dari <a href="https://rinkwebstudio.com" target="_blank" rel="noopener noreferrer" class="font-semibold text-brand-ink hover:underline">Rinkweb Studio</a></p>
+        </div>
       </div>
     </footer>
-
   </div>
 </template>
 
 <script setup lang="ts">
 import { Mail, MapPin, Menu, Phone, X } from 'lucide-vue-next'
+import { LOGIN_URL, SIGNUP_URL, WHATSAPP_URL } from '~/utils/links'
 
 const navLinks = [
-  { to: '/tentang', label: 'Tentang Kami' },
+  { to: '/#fitur', label: 'Fitur' },
   { to: '/docs', label: 'Dokumentasi' },
-  { to: '/privacy-policy', label: 'Kebijakan Privasi' },
-  { to: '/terms', label: 'Syarat & Ketentuan' },
+  { to: '/tentang', label: 'Tentang' },
+  { to: '/contact', label: 'Kontak' },
+]
+
+const footerGroups = [
+  { title: 'Perusahaan', links: [{ to: '/tentang', label: 'Tentang kami' }, { to: '/docs', label: 'Dokumentasi' }, { to: '/contact', label: 'Hubungi kami' }] },
+  { title: 'Legal', links: [{ to: '/privacy-policy', label: 'Kebijakan privasi' }, { to: '/terms', label: 'Syarat & ketentuan' }, { to: '/data-deletion', label: 'Penghapusan data' }] },
 ]
 
 const route = useRoute()
+const year = new Date().getFullYear()
 const mobileOpen = ref(false)
 const isScrolled = ref(false)
+const menuButton = ref<HTMLButtonElement | null>(null)
+const menuPanel = ref<HTMLElement | null>(null)
 
-const checkScroll = () => { isScrolled.value = window.scrollY > 50 }
+const isActive = (to: string) => !to.includes('#') && route.path === to
 
-onMounted(() => window.addEventListener('scroll', checkScroll))
-onUnmounted(() => window.removeEventListener('scroll', checkScroll))
+const openMenu = async () => {
+  mobileOpen.value = true
+  await nextTick()
+  menuPanel.value?.querySelector<HTMLElement>('a')?.focus()
+}
+const closeMenu = (returnFocus = false) => {
+  mobileOpen.value = false
+  if (returnFocus) menuButton.value?.focus()
+}
 
-const isHome = computed(() => route.path === '/')
+const onKeydown = (event: KeyboardEvent) => { if (event.key === 'Escape' && mobileOpen.value) closeMenu(true) }
+const checkScroll = () => { isScrolled.value = window.scrollY > 8 }
 
-const headerClass = computed(() => {
-  const solidHeader = 'bg-white/95 shadow-md backdrop-blur border-b border-gray-100'
-  if (!isHome.value) return solidHeader
-  return isScrolled.value ? solidHeader : 'bg-transparent'
+watch(() => route.fullPath, () => { mobileOpen.value = false })
+onMounted(() => {
+  checkScroll()
+  window.addEventListener('scroll', checkScroll, { passive: true })
+  window.addEventListener('keydown', onKeydown)
 })
-
-const logoFilter = computed(() => !isHome.value || isScrolled.value ? '' : 'filter brightness-0 invert')
-
-const menuIconClass = computed(() => {
-  if (!isHome.value || isScrolled.value) return 'text-gray-700'
-  return 'text-white'
+onUnmounted(() => {
+  window.removeEventListener('scroll', checkScroll)
+  window.removeEventListener('keydown', onKeydown)
 })
-
-const loginClass = computed(() => {
-  const base = !isHome.value || isScrolled.value
-  return base ? 'text-gray-600 hover:text-brand-600 hover:bg-brand-50' : 'text-white/80 hover:text-white hover:bg-white/10'
-})
-
-const docsClass = computed(() => {
-  const base = !isHome.value || isScrolled.value
-  return base ? 'text-gray-600 hover:text-brand-600 hover:bg-brand-50' : 'text-white/80 hover:text-white hover:bg-white/10'
-})
-
 </script>
+
+<style scoped>
+.nav-active { @apply font-semibold text-ink; }
+.nav-active::after { content: ''; @apply absolute inset-x-0 -bottom-0.5 h-0.5 rounded-full bg-brand; }
+</style>

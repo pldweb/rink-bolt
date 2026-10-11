@@ -10,14 +10,12 @@
     "postinstall": "nuxt prepare",
     "deploy:cloudflare": "npm run build && wrangler deploy --name rink-bolt --assets .output/public --compatibility-date 2025-07-15",
     "deploy": "npm run build && wrangler deploy",
-    "cf-typegen": "wrangler types"
+    "cf-typegen": "wrangler types",
+    "deploy:staging": "npm run build && printf '\\n/*\\n  X-Robots-Tag: noindex, nofollow\\n' >> .output/public/_headers && wrangler deploy --name rink-bolt-staging"
   },
   "dependencies": {
-    "@pinia/nuxt": "^0.11.3",
     "lucide-vue-next": "^0.556.0",
     "nuxt": "^4.4.7",
-    "pinia": "^3.0.4",
-    "three": "^0.185.1",
     "vue": "^3.5.35",
     "vue-router": "^5.1.0"
   },

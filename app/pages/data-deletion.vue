@@ -1,54 +1,42 @@
 <template>
   <div>
-    <section class="pt-28 pb-16 sm:pt-32 sm:pb-20 bg-[#062534] text-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <span class="text-sm font-semibold text-brand-400 uppercase tracking-wider">Legal</span>
-        <h1 class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold">Kebijakan Penghapusan Data</h1>
-        <p class="mt-2 text-gray-400 text-sm">Terakhir diperbarui: 24 September 2026</p>
-      </div>
-    </section>
-
-    <section class="py-16 sm:py-20 bg-white">
-      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <PageHero eyebrow="Legal" title="Kebijakan Penghapusan Data" updated="24 September 2026" />
+    <LegalDoc :sections="sections">
+      <template #before>
         <!-- Diisi saat Meta mengarahkan pengguna ke sini setelah permintaan penghapusan Threads -->
-        <div v-if="confirmationCode" class="mb-10 p-5 rounded-2xl border border-green-200 bg-green-50 text-center" role="status">
-          <p class="text-sm font-bold text-gray-900">Permintaan penghapusan dari Threads sudah diproses.</p>
-          <p class="mt-1 text-sm text-gray-600">Koneksi akun Threads Anda, termasuk token akses dan detail akun, telah dihapus.</p>
-          <p class="mt-2 text-xs text-gray-500">Kode konfirmasi: <span class="font-mono break-all text-gray-800">{{ confirmationCode }}</span></p>
-        </div>
-
-        <!-- Steps -->
-        <div class="grid sm:grid-cols-3 gap-4 mb-14">
-          <div v-for="(step, i) in steps" :key="i" class="text-center p-6 rounded-2xl border border-gray-100 bg-gray-50">
-            <div class="w-10 h-10 mx-auto mb-3 bg-brand-500 text-white rounded-xl flex items-center justify-center text-sm font-bold">{{ i + 1 }}</div>
-            <h3 class="text-sm font-bold text-gray-900 mb-1">{{ step.title }}</h3>
-            <p class="text-xs text-gray-500">{{ step.desc }}</p>
+        <div v-if="confirmationCode" class="mb-12 flex gap-4 rounded-xl border border-success/30 bg-success-soft p-5" role="status">
+          <CircleCheck class="mt-0.5 h-6 w-6 shrink-0 text-success" aria-hidden="true" />
+          <div class="min-w-0">
+            <p class="font-bold text-ink">Permintaan penghapusan dari Threads sudah diproses.</p>
+            <p class="mt-1 text-body-sm text-ink-muted">Koneksi akun Threads Anda, termasuk token akses dan detail akun, telah dihapus.</p>
+            <p class="mt-3 text-body-sm text-ink-muted">Kode konfirmasi: <span class="break-all rounded-sm bg-white px-2 py-0.5 font-mono font-semibold text-ink">{{ confirmationCode }}</span></p>
           </div>
         </div>
 
-        <!-- Content -->
-        <div class="space-y-10">
-          <div v-for="(sec, i) in sections" :key="i">
-            <h2 class="text-xl font-bold text-gray-900 flex items-center gap-2">
-              <span class="text-brand-500 text-sm font-semibold">{{ i + 1 }}.</span>{{ sec.title }}
-            </h2>
-            <div class="text-gray-600 leading-relaxed space-y-2 mt-3 [&_strong]:text-gray-800 [&_a]:text-brand-500 [&_ol]:list-decimal [&_ol]:pl-5 [&_ul]:list-disc [&_ul]:pl-5 [&_li]:mt-1" v-html="sec.content" />
-          </div>
-        </div>
-
-        <div class="mt-16 p-6 bg-brand-50 rounded-2xl border border-brand-100 text-center">
-          <p class="text-sm text-gray-600">
-            Ajukan permintaan: <strong class="text-gray-800">support@rinkwebstudio.com</strong> &nbsp;•&nbsp;
-            WA: <strong class="text-gray-800">+62 812-3456-7890</strong> &nbsp;•&nbsp;
-            <NuxtLink to="/contact" class="text-brand-600 font-semibold hover:underline">Halaman Kontak</NuxtLink>
-          </p>
-        </div>
-      </div>
-    </section>
+        <ol class="mb-14 grid gap-6 border-y border-line py-6 sm:grid-cols-3">
+          <li v-for="(step, i) in steps" :key="i" class="flex gap-4 sm:block">
+            <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-navy text-label text-white">{{ i + 1 }}</span>
+            <div class="sm:mt-3">
+              <h2 class="font-semibold text-ink">{{ step.title }}</h2>
+              <p class="mt-1 text-body-sm text-ink-muted">{{ step.desc }}</p>
+            </div>
+          </li>
+        </ol>
+      </template>
+      <template #footer>
+        Ajukan permintaan: <strong class="font-semibold">support@rinkwebstudio.com</strong> &nbsp;•&nbsp;
+        WA: <strong class="font-semibold">+62 812-3456-7890</strong> &nbsp;•&nbsp;
+        <NuxtLink to="/contact" class="font-semibold text-brand-ink underline underline-offset-2">Halaman Kontak</NuxtLink>
+      </template>
+    </LegalDoc>
   </div>
 </template>
 
 <script setup lang="ts">
+import { CircleCheck } from 'lucide-vue-next'
+
+useSeoMeta({ title: 'Kebijakan Penghapusan Data — RinkBolt', description: 'Cara meminta penghapusan data akun RinkBolt, termasuk data koneksi Instagram dan Threads.', ogTitle: 'Kebijakan Penghapusan Data — RinkBolt', ogDescription: 'Cara meminta penghapusan data akun RinkBolt, termasuk data koneksi Instagram dan Threads.' })
+
 const route = useRoute()
 const confirmationCode = computed(() => {
   const code = route.query.code
