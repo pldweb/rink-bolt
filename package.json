@@ -11,7 +11,7 @@
     "deploy:cloudflare": "npm run build && wrangler deploy --name rink-bolt --assets .output/public --compatibility-date 2025-07-15",
     "deploy": "npm run build && wrangler deploy",
     "cf-typegen": "wrangler types",
-    "deploy:staging": "npm run build && printf '/*\\n  X-Robots-Tag: noindex, nofollow\\n' >> .output/public/_headers && wrangler deploy --name rink-bolt-staging"
+    "deploy:staging": "npm run build && printf '\\n/*\\n  X-Robots-Tag: noindex, nofollow\\n' >> .output/public/_headers && wrangler deploy --name rink-bolt-staging"
   },
   "dependencies": {
     "lucide-vue-next": "^0.556.0",
