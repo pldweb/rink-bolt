@@ -13,7 +13,7 @@
             Semua chat pelanggan, <span class="text-brand-light">satu inbox.</span>
           </h1>
           <p class="mt-5 max-w-[34rem] text-body-lg text-on-navy">
-            Balas WhatsApp, Instagram, dan Threads bareng tim, kirim broadcast yang terasa personal, dan simpan setiap pelanggan dalam satu workspace.
+            Balas WhatsApp, Instagram, dan Threads bareng tim, kirim broadcast yang terasa personal, dan jadwalkan konten ke YouTube, TikTok, Instagram, dan Threads dari satu workspace.
           </p>
           <div class="mt-8 flex flex-col gap-3 sm:flex-row">
             <a :href="SIGNUP_URL" class="btn btn-primary btn-lg">Coba gratis <ArrowRight class="h-5 w-5" aria-hidden="true" /></a>
@@ -135,12 +135,12 @@
 </template>
 
 <script setup lang="ts">
-import { ArrowRight, AtSign, Check, CheckCheck, Inbox, LayoutTemplate, MessageCircle, Users, Webhook } from 'lucide-vue-next'
+import { ArrowRight, CalendarClock, Check, CheckCheck, Inbox, LayoutTemplate, MessageCircle, Users, Webhook } from 'lucide-vue-next'
 import { SIGNUP_URL, WHATSAPP_URL } from '~/utils/links'
 
 useSeoMeta({
   title: 'RinkBolt — Inbox WhatsApp, Instagram & Threads resmi Meta',
-  description: 'Balas chat WhatsApp, Instagram, dan Threads bareng tim, kirim broadcast, dan kelola pelanggan dari satu workspace resmi Meta.',
+  description: 'Balas chat WhatsApp, Instagram, dan Threads bareng tim, kirim broadcast, upload konten ke YouTube, TikTok, Instagram, dan Threads, dan kelola pelanggan dari satu workspace.',
   ogTitle: 'RinkBolt — Semua chat pelanggan, satu inbox',
   ogDescription: 'Inbox bersama, broadcast terjadwal, dan CRM di atas WhatsApp Business Platform resmi Meta.',
 })
@@ -152,13 +152,13 @@ const features = [
   { icon: Inbox, title: 'Inbox bersama', desc: 'Satu kotak masuk untuk WhatsApp, Instagram, dan Threads. Bagi percakapan ke anggota tim tanpa saling tumpang tindih.' },
   { icon: Users, title: 'Kontak & segmen', desc: 'Impor, beri label, dan kelompokkan pelanggan supaya pesan sampai ke orang yang tepat.' },
   { icon: LayoutTemplate, title: 'Template pesan', desc: 'Kelola template teks, gambar, dokumen, dan video yang sudah disetujui Meta.' },
-  { icon: AtSign, title: 'Konten Instagram & Threads', desc: 'Jadwalkan posting dan pantau insight dari workspace yang sama.' },
+  { icon: CalendarClock, title: 'Upload konten ke 4 platform', desc: 'Unggah video dan foto ke YouTube, TikTok, Instagram, dan Threads, atur jadwal tayangnya, lalu pantau insight dari workspace yang sama.' },
   { icon: Webhook, title: 'API & webhook', desc: 'Sambungkan toko online, ERP, atau aplikasi internalmu.' },
 ]
 
 const steps = [
   { title: 'Daftar dan buat workspace', desc: 'Bikin akun RinkBolt lalu undang anggota tim yang ikut membalas chat.' },
-  { title: 'Hubungkan nomor dan akun', desc: 'Sambungkan nomor WhatsApp Business, Instagram, atau Threads lewat jalur resmi Meta.' },
+  { title: 'Hubungkan nomor dan akun', desc: 'Sambungkan nomor WhatsApp Business serta akun Instagram, Threads, YouTube, atau TikTok lewat jalur resmi tiap platform.' },
   { title: 'Kirim kampanye pertama', desc: 'Pilih template, tentukan audiens, lalu pantau terkirim, dibaca, dan dibalas.' },
 ]
 </script>
