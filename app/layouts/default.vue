@@ -46,7 +46,7 @@
       <div class="container-page grid grid-cols-2 gap-x-6 gap-y-10 py-12 lg:grid-cols-[1.5fr_1fr_1fr_1.4fr] lg:py-16">
         <div class="col-span-2 lg:col-span-1">
           <BrandLogo />
-          <p class="mt-4 max-w-xs text-body-sm">Inbox WhatsApp, Instagram, dan Threads resmi Meta untuk broadcast, percakapan, dan CRM bisnismu.</p>
+          <p class="mt-4 max-w-xs text-body-sm">Inbox WhatsApp, Instagram, dan Threads resmi Meta untuk broadcast, percakapan, dan CRM, plus upload konten ke YouTube, TikTok, Instagram, dan Threads.</p>
           <p class="mt-5 inline-flex items-center gap-2 rounded-full border border-line bg-white py-2 pl-3 pr-4 text-caption text-ink">
             <MetaLogo class="h-4 w-5 text-[#0866FF]" />Meta Tech Provider
           </p>
