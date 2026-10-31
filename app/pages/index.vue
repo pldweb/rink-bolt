@@ -1,30 +1,33 @@
 <template>
   <div>
     <!-- Hero -->
-    <section class="pb-20 pt-10 lg:pb-24 lg:pt-16">
+    <!-- Hero: blok navy dengan lingkaran oranye di belakang mockup, seperti rinkwebstudio.com -->
+    <section class="on-dark overflow-hidden bg-navy pb-20 pt-14 text-white lg:pb-24 lg:pt-20">
       <div class="container-page grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-16">
         <div>
-          <p class="inline-flex items-center gap-2 rounded-full border border-line py-1.5 pl-2 pr-4 text-caption font-semibold text-ink">
-            <span class="grid h-6 w-6 place-items-center rounded-full bg-sunken"><MetaLogo class="h-3 w-4 text-[#0866FF]" /></span>
+          <p class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 py-1.5 pl-2 pr-4 text-caption font-semibold text-white">
+            <span class="grid h-6 w-6 place-items-center rounded-full bg-white"><MetaLogo class="h-3 w-4 text-[#0866FF]" /></span>
             Meta Tech Provider resmi
           </p>
-          <h1 class="mt-6 text-display-lg text-ink sm:text-display-xl">
-            Semua chat pelanggan, <span class="text-brand-hover">satu inbox.</span>
+          <h1 class="mt-6 text-display-lg text-white sm:text-display-xl">
+            Semua chat pelanggan, <span class="text-brand-light">satu inbox.</span>
           </h1>
-          <p class="mt-5 max-w-[34rem] text-body-lg text-ink-muted">
+          <p class="mt-5 max-w-[34rem] text-body-lg text-on-navy">
             Balas WhatsApp, Instagram, dan Threads bareng tim, kirim broadcast yang terasa personal, dan simpan setiap pelanggan dalam satu workspace.
           </p>
           <div class="mt-8 flex flex-col gap-3 sm:flex-row">
             <a :href="SIGNUP_URL" class="btn btn-primary btn-lg">Coba gratis <ArrowRight class="h-5 w-5" aria-hidden="true" /></a>
-            <a :href="WHATSAPP_URL" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-lg">Tanya tim kami</a>
+            <a :href="WHATSAPP_URL" target="_blank" rel="noopener noreferrer" class="btn btn-on-dark btn-lg">Tanya tim kami</a>
           </div>
-          <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-body-sm text-ink-muted">
-            <li v-for="point in heroPoints" :key="point" class="flex items-center gap-2"><Check class="h-4 w-4 text-brand-ink" aria-hidden="true" />{{ point }}</li>
+          <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-body-sm text-on-navy">
+            <li v-for="point in heroPoints" :key="point" class="flex items-center gap-2"><Check class="h-4 w-4 text-brand-light" aria-hidden="true" />{{ point }}</li>
           </ul>
         </div>
 
-        <div class="rounded-xl bg-brand p-4 sm:px-10 sm:pb-14 sm:pt-10">
-          <InboxMockup />
+        <div class="relative py-6 sm:py-10">
+          <!-- Di HP mockup lebih tinggi dari lingkaran, jadi lingkaran digeser ke pojok supaya tetap terlihat. -->
+          <div class="absolute -right-10 top-0 aspect-square w-[72%] rounded-full bg-brand sm:left-1/2 sm:right-auto sm:top-1/2 sm:w-[78%] sm:-translate-x-1/2 sm:-translate-y-1/2" aria-hidden="true" />
+          <InboxMockup class="relative" />
         </div>
       </div>
     </section>

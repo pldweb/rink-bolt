@@ -58,9 +58,11 @@ export default defineNuxtConfig({
       theme: {
         extend: {
           colors: {
-            brand: { DEFAULT: '#EA7F17', hover: '#D06510', soft: '#FFF4E8', ink: '#AC4D11', 'ink-dark': '#F5B36A' },
+            brand: { DEFAULT: '#EA7F17', hover: '#D06510', soft: '#FFF4E8', ink: '#AC4D11', 'ink-dark': '#F5B36A', light: '#FFAD59' },
             navy: { DEFAULT: '#032838', fill: '#0B3446', deep: '#011720' },
             ink: { DEFAULT: '#032838', muted: '#43606E', subtle: '#536B78' },
+            // Teks sekunder di atas navy, sama dengan hero rinkwebstudio.com.
+            'on-navy': '#C9D8DE',
             canvas: '#F6F8FA',
             sunken: '#EEF3F6',
             line: '#DBE4EA',
