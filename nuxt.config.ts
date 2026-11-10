@@ -19,6 +19,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: false,
   routeRules: { '/**': { headers: securityHeaders } },
+  runtimeConfig: { brandingApi: 'https://api.rinkbolt.web.id' }, // override: NUXT_BRANDING_API
 
   modules: ['@nuxtjs/tailwindcss', "nitro-cloudflare-dev"],
 
@@ -36,7 +37,9 @@ export default defineNuxtConfig({
         { property: 'og:type', content: 'website' },
       ],
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        // Dinamis: server/routes/favicon.ico.ts menarik favicon dari Pengaturan RinkBolt.
+        { rel: 'icon', href: '/favicon.ico' },
+        { rel: 'apple-touch-icon', href: '/favicon.ico' },
         { rel: 'preload', href: '/fonts/Poppins-Regular.woff2', as: 'font', type: 'font/woff2', crossorigin: '' },
         { rel: 'preload', href: '/fonts/Poppins-Bold.woff2', as: 'font', type: 'font/woff2', crossorigin: '' },
       ]
