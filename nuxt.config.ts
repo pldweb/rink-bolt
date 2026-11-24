@@ -42,7 +42,11 @@ export default defineNuxtConfig({
         { rel: 'apple-touch-icon', href: '/favicon.ico' },
         { rel: 'preload', href: '/fonts/Poppins-Regular.woff2', as: 'font', type: 'font/woff2', crossorigin: '' },
         { rel: 'preload', href: '/fonts/Poppins-Bold.woff2', as: 'font', type: 'font/woff2', crossorigin: '' },
-      ]
+      ],
+      // Umami analytics; build staging (NUXT_NOINDEX=1) tidak ikut dilacak.
+      script: process.env.NUXT_NOINDEX === '1' ? [] : [
+        { src: 'https://umami.rinkwebstudio.com/script.js', defer: true, 'data-website-id': '50d10c48-18bb-42fc-a899-8577d0687f96' },
+      ],
     }
   },
 
